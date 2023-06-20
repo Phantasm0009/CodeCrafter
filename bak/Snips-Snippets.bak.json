@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "groupName": "Bash",
+    "title": "Shutdown",
+    "description": "Shutdown Linux from terminal",
+    "snippet": "sudo shutdown -h now",
+    "notes": ""
+  },
+  {
+    "id": 2,
+    "groupName": "Git",
+    "title": "Chained checkout commands",
+    "description": "Chain all commands for one checkout",
+    "snippet": "git add . && git commit -m \"MESSAGE\" && git push origin BRANCH",
+    "notes": "Replace MESSAGE with valid commit message, and BRANCH with current branch name"
+  },
+  {
+    "id": 3,
+    "groupName": "Batch",
+    "title": "Copy",
+    "description": "Copies one or more files from one location to another",
+    "snippet": "copy /Y \"FROM\" \"TO\"",
+    "notes": "/Y - Suppresses prompting to confirm that you want to overwrite an existing destination file"
+  },
+  {
+    "id": 4,
+    "groupName": "Batch",
+    "title": "XCopy",
+    "description": "Copies files and directories, including subdirectories",
+    "snippet": "xcopy \"FROM\" \"TO\" /Y /E",
+    "notes": "/E - Copies all subdirectories, even if they are empty"
+  },
+  {
+    "id": 5,
+    "groupName": "Batch",
+    "title": "Directory Exists",
+    "description": "Checks to see if a directory exists",
+    "snippet": "if exist \"C:\\Temp\\\" (\n  //do something...\n) ",
+    "notes": "Note the \\ at the end of the path. Will look for file existence otherwise\n\nCan also precede exist with not to check file doesn't exist"
+  },
+  {
+    "id": 6,
+    "groupName": "Git",
+    "title": "Update Submodules",
+    "description": "Updates all submodules in a repo",
+    "snippet": "git submodule update --remote --merge",
+    "notes": ""
+  }
+]
