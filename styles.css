@@ -1,0 +1,79 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #5e5a5a;
+  color: #fff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .share-icons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .share-icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 5px;
+    background-color: #555;
+    background-size: cover;
+    cursor: pointer;
+  }
+  
+  .share-facebook {
+    background-image: url("facebook-icon.png");
+  }
+  
+  .share-twitter {
+    background-image: url("twitter-icon.png");
+  }
+  
+  .share-instagram {
+    background-image: url("instagram-icon.png");
+  }
+  
+  .share-email {
+    background-image: url("email-icon.png");
+  }
+  
+  .share-copy {
+    background-image: url("copy-icon.png");
+  }
+
+  /* ... existing CSS code ... */
+
+.chrome-store-icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 5px;
+    background-image: url("chrome-store-icon.png");
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  

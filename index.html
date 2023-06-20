@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Streamlined code snippet manager for Chrome. Save, organize, and access frequently used snippets with ease. Boost coding efficiency and bring your code to life in a click.      "
+    />
+    <meta
+      name="keywords"
+      content="Chrome Extension, Code Snippets"
+    />
+    <meta name="author" content="Aditya Tiwari" />
+    <meta name="version" content="1.0.0" />
+    <title>CodeCrafter</title>
+    <link rel="icon" type="image/png" href="img/snips-128.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Permanent+Marker"
+    />
+    <link rel="stylesheet" href="msg/css/msg.min.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/style.min.css?v=1.0.0" />
+  </head>
+  <body>
+    <!-- add/edit snippet modal start -->
+    <div id="add-snippet-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header bg-clr-dark font-branded font-clr-light">
+          <span id="btn-close-snippet-modal" class="close">&times;</span>
+          <h2 id="snippet-modal-header">Add Snippet</h2>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td><label for="lbl-title">Title</label></td>
+              <td>
+                <input
+                  class="snippet-control"
+                  type="text"
+                  id="lbl-title"
+                  name="title"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="lbl-group">Group</label></td>
+              <td>
+                <input
+                  class="snippet-control"
+                  type="text"
+                  id="lbl-group"
+                  name="group"
+                  autocomplete="off"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="lbl-description">Description</label></td>
+              <td>
+                <textarea
+                  class="snippet-control"
+                  rows="4"
+                  cols="50"
+                  id="lbl-description"
+                  name="description"
+                  autocomplete="off"
+                ></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="lbl-snippet">Snippet</label></td>
+              <td>
+                <textarea
+                  class="snippet-control"
+                  rows="4"
+                  cols="50"
+                  id="lbl-snippet"
+                  name="snippet"
+                  autocomplete="off"
+                  required
+                ></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="lbl-notes">Notes</label></td>
+              <td>
+                <textarea
+                  class="snippet-control"
+                  rows="4"
+                  cols="50"
+                  id="lbl-notes"
+                  name="notes"
+                  autocomplete="off"
+                ></textarea>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer bg-clr-med font-branded">
+          <button
+            id="btn-snippet-modal-action"
+            class="font-branded font-lg"
+            data-id="0"
+            data-type="add"
+          >
+            save&nbsp;<i class="material-icons">save</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- add snippet modal end -->
+
+    <!-- settings modal start -->
+    <div id="settings-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header bg-clr-dark font-branded font-clr-light">
+          <span id="btn-close-settings-modal" class="close">&times;</span>
+          <h2>Settings</h2>
+        </div>
+        <div class="modal-body">
+          <div class="tab">
+            <button
+              id="btn-tab-settings"
+              class="tablinks font-branded font-sm active"
+            >
+              Settings
+            </button>
+            <button id="btn-tab-data" class="tablinks font-branded font-sm">
+              Data
+            </button>
+            <button id="btn-tab-debug" class="tablinks font-branded font-sm">
+              Debug
+            </button>
+            <button id="btn-tab-about" class="tablinks font-branded font-sm">
+              About
+            </button>
+          </div>
+          <!-- do not refactor this inline style -->
+          <div id="Settings" class="tabcontent" style="display: block">
+            <table>
+              <tr>
+                <td>
+                  <label for="lbl-settings-close-modal"
+                    >Close modal on background click</label
+                  >
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    id="lbl-settings-close-modal"
+                    data-settings="true"
+                    data-setting="allowModalBGClick"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="lbl-settings-close-accordion"
+                    >Close accordions on click</label
+                  >
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    id="lbl-settings-close-accordion"
+                    data-settings="true"
+                    data-setting="allowAccordionClick"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="lbl-settings-remember-index"
+                    >Remember selected snippet</label
+                  >
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    id="lbl-settings-remember-index"
+                    data-settings="true"
+                    data-setting="rememberIndex"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="lbl-settings-show-debug">Show debug info</label>
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    id="lbl-settings-remember-index"
+                    data-settings="true"
+                    data-setting="showDebug"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="Data" class="tabcontent">
+            <input type="file" id="inp-import-settings" />
+            <input type="file" id="inp-import-snippets" />
+            <table>
+              <tr>
+                <td colspan="2">Settings</td>
+              </tr>
+              <tr>
+                <td>
+                  <button id="btn-import-settings" class="font-branded font-md">
+                    import&nbsp;<i class="material-icons">file_upload</i>
+                  </button>
+                </td>
+                <td>
+                  <button id="btn-export-settings" class="font-branded font-md">
+                    export&nbsp;<i class="material-icons">file_download</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">Snippets</td>
+              </tr>
+              <tr>
+                <td>
+                  <button id="btn-import-snippets" class="font-branded font-md">
+                    import&nbsp;<i class="material-icons">file_upload</i>
+                  </button>
+                </td>
+                <td>
+                  <button id="btn-export-snippets" class="font-branded font-md">
+                    export&nbsp;<i class="material-icons">file_download</i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="Debug" class="tabcontent">
+            <div class="margin-b-md">
+              <button id="btn-refresh-data">
+                <i class="material-icons">refresh</i>
+              </button>
+            </div>
+            <label for="lbl-settings">Settings</label>
+            <textarea id="lbl-settings" rows="4" cols="50"></textarea>
+            <button id="btn-clear-settings" class="font-branded font-md">
+              clear&nbsp;<i class="material-icons">clear</i>
+            </button>
+            <button id="btn-save-settings" class="font-branded font-md">
+              save&nbsp;<i class="material-icons">save</i>
+            </button>
+            <br />
+            <label for="lbl-snippets">Snippets</label>
+            <textarea id="lbl-snippets" rows="4" cols="50"></textarea>
+            <button id="btn-clear-snippets" class="font-branded font-md">
+              clear&nbsp;<i class="material-icons">clear</i>
+            </button>
+            <button id="btn-save-snippets" class="font-branded font-md">
+              save&nbsp;<i class="material-icons">save</i>
+            </button>
+            <span class="hide-xs">
+              <hr class="line-dark" />
+              <label>Test popup</label>
+              <br />
+              <button id="btn-test-msg-success" class="font-branded font-md">
+                <i class="material-icons">check_circle</i>
+              </button>
+              <button id="btn-test-msg-info" class="font-branded font-md">
+                <i class="material-icons">info</i>
+              </button>
+              <button id="btn-test-msg-warning" class="font-branded font-md">
+                <i class="material-icons">warning</i>
+              </button>
+              <button id="btn-test-msg-error" class="font-branded font-md">
+                <i class="material-icons">error</i>
+              </button>
+            </span>
+          </div>
+          <div id="About" class="tabcontent">
+            <p class="font-branded font-lg padding-l-md font-clr-dark">Snips</p>
+            <img
+              class="padding-t-xs padding-r-md float-right hide-xs"
+              src="img/a2-sm.png"
+              alt="Snips"
+            />
+            <p class="font-branded font-sm padding-l-md font-clr-dark">
+              Version:&nbsp;<span id="about-version"></span>
+            </p>
+            <p class="font-branded font-sm padding-l-md font-clr-dark">
+              &copy;&nbsp;<span id="about-year"></span>
+            </p>
+          </div>
+        </div>
+        <div
+          class="modal-footer bg-clr-med font-branded"
+          id="settings-modal-footer"
+        >
+          <button id="btn-save-all-settings" class="font-branded font-lg">
+            save&nbsp;<i class="material-icons">save</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- add group modal end -->
+
+    <!--side nav start -->
+    <div id="side-nav" class="sidenav bg-clr-dark">
+      <span
+        id="btn-close-nav"
+        class="close font-branded btn-nav-close font-clr-light"
+        >&times;</span
+      >
+      <input type="search" class="margin-b-lg" placeholder="Search..." />
+      <hr class="line-light" />
+      <div id="side-nav-container">
+        <!-- content created programmatically... -->
+      </div>
+    </div>
+    <!--side nav end -->
+
+    <!--main header start -->
+    <div>
+      <div class="bg-clr-dark">
+        <span class="font-branded font-xl padding-l-md font-clr-light"
+          >CodeCrafter<img
+            class="padding-t-xs padding-r-md float-right"
+            src="img/a2-sm.png"
+            alt="Snips"
+        /></span>
+      </div>
+      <div class="padding-t-md padding-b-sm">
+        <span id="btn-open-nav" class="font-branded font-lg csr-pointer"
+          ><i class="material-icons">menu</i>&nbsp;Menu</span
+        >
+      </div>
+    </div>
+    <hr class="line-dark" />
+    <!--main header end -->
+
+    <!--content start -->
+    <h1 id="main-title">Git Stash</h1>
+    <h2 id="main-group-name">&lt;git&gt;</h2>
+    <h3>Description:</h3>
+    <p id="main-description" class="padding-l-md">
+      Used to stash source code changes to pull back in after a checkout
+    </p>
+    <h3>Snippet:</h3>
+    <pre class="padding-l-md padding-r-md">
+			<code id="main-snippet" class="bg-clr-med">$ git stash<br>$ git stash pop</code>
+		</pre>
+    <h3>Notes:</h3>
+    <p id="main-notes" class="padding-l-md">
+      Stash to cache it, pop to pull changes back
+    </p>
+    <!--content end -->
+
+    <!-- main footer start -->
+    <div class="main-footer bg-clr-med">
+      <div class="main-footer-container">
+        <button class="font-branded font-md wdth-30" id="btn-add-snippet">
+          <span class="hide-xs">add&nbsp;</span
+          ><i class="material-icons">add</i>
+        </button>
+        <button class="font-branded font-md wdth-30" id="btn-edit-snippet">
+          <span class="hide-xs">edit&nbsp;</span
+          ><i class="material-icons">edit</i>
+        </button>
+        <button class="font-branded font-md wdth-30" id="btn-settings">
+          <span class="hide-xs">settings&nbsp;</span
+          ><i class="material-icons">settings</i>
+        </button>
+      </div>
+    </div>
+    <!-- main footer end -->
+
+    <script
+      type="text/javascript"
+      src="msg/js/chrome-ext.min.js?v=1.0.0"
+    ></script>
+    <script type="text/javascript" src="msg/js/msg.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="js/settings.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="js/accordion.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="js/snippets.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="js/modal.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="js/nav-bar.min.js?v=1.0.0"></script>
+    <script
+      type="text/javascript"
+      src="js/page-control.min.js?v=1.0.0"
+    ></script>
+    <script type="text/javascript" src="js/data.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="js/meta.min.js?v=1.0.0"></script>
+    <script type="text/javascript" src="js/bindings.min.js?v=1.0.0"></script>
+  </body>
+</html>
