@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/msg.min.css">
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td><label for="ctrl-msg-type">Choose a message type:</label></td>
+                <td>
+                    <select name="message-type" id="ctrl-msg-type">
+                        <option value="success">Success</option>
+                        <option value="info">Info</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="ctrl-msg-body">Message body:</label></td>
+                <td><input type="text" id="ctrl-msg-body" name="message-body"></td>
+            </tr>
+            <tr>
+                <td><label for="ctrl-msg-header-font">Header font:</label></td>
+                <td><input type="text" id="ctrl-msg-header-font" name="message-header-font"></td>
+            </tr>
+            <tr>
+                <td><label for="ctrl-msg-content-font">Content font:</label></td>
+                <td><input type="text" id="ctrl-msg-content-font" name="message-content-font"></td>
+            </tr>
+            <tr>
+                <td><label for="ctrl-msg-clr-success">Success colour:</label></td>
+                <td><input type="color" id="ctrl-msg-clr-success" name="message-success-clr" value="#4caf50"></td>
+            </tr>
+            <tr>
+                <td><label for="ctrl-msg-clr-info">Info colour:</label></td>
+                <td><input type="color" id="ctrl-msg-clr-info" name="message-info-clr" value="#2196F3"></td>
+            </tr>
+            <tr>
+                <td><label for="ctrl-msg-clr-warning">Warning colour:</label></td>
+                <td><input type="color" id="ctrl-msg-clr-warning" name="message-warning-clr" value="#ff9800"></td>
+            </tr>
+            <tr>
+                <td><label for="ctrl-msg-clr-error">Error colour:</label></td>
+                <td><input type="color" id="ctrl-msg-clr-error" name="message-error-clr" value="#d32f2f"></td>
+            </tr>
+        </table>
+        <button id="btn-show-msg">Open Message</button>
+        <script type="text/javascript" src="js/msg.js"></script>
+        <script type="text/javascript">
+            let btn = document.getElementById("btn-show-msg");
+
+            btn.onclick = function() {
+                let sel = document.getElementById("ctrl-msg-type");
+                let inp = document.getElementById("ctrl-msg-body");
+
+                let hFnt = document.getElementById("ctrl-msg-header-font");
+                let cFnt = document.getElementById("ctrl-msg-content-font");
+
+                if (hFnt.value !== "") {
+                    MSG_HEADER_FONT = hFnt.value;
+                }
+
+                if (cFnt.value !== "") {
+                    MSG_CONTENT_FONT = cFnt.value;
+                }
+
+                let cs = document.getElementById("ctrl-msg-clr-success");
+                let ci = document.getElementById("ctrl-msg-clr-info");
+                let cw = document.getElementById("ctrl-msg-clr-warning");
+                let ce = document.getElementById("ctrl-msg-clr-error");
+
+                MSG_SUCCESS_COLOUR = cs.value;
+                MSG_INFO_COLOUR = ci.value;
+                MSG_WARNING_COLOUR = cw.value;
+                MSG_ERROR_COLOUR = ce.value;
+
+                if (!showMsg(sel.value, inp.value)) {
+                    alert('Could not show message');
+                }
+            }
+        </script>
+    </body>
+</html>
